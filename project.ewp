@@ -224,7 +224,10 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
-                    <state></state>
+                    <state>ewarm</state>
+                    <state>PART_TM4C123GH6PM</state>
+                    <state>TARGET_IS_TM4C123_RB1</state>
+                    <state>UART_BUFFERED</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -350,6 +353,7 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>.\CMSIS\Include</state>
+                    <state>$TivaWarePath$</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2126,6 +2130,9 @@
     </file>
     <file>
         <name>$PROJ_DIR$\..\CMSIS\Include\core_cm4.h</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\ti\TivaWare_C_Series-2.2.0.295\driverlib\ewarm\Exe\driverlib.a</name>
     </file>
     <file>
         <name>$PROJ_DIR$\main.c</name>

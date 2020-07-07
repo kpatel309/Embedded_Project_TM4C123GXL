@@ -2780,6 +2780,9 @@
         <name>$PROJ_DIR$\..\CMSIS\Include\core_cm4.h</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\ti\TivaWare_C_Series-2.2.0.295\driverlib\ewarm\Exe\driverlib.a</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\main.c</name>
     </file>
     <file>

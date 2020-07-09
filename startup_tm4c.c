@@ -68,6 +68,7 @@ int const __vector_table[] @ ".intvec" = {
     (int)&CAN1_IRQHandler,         /* CAN1                         */
     (int)&CAN2_IRQHandler,         /* CAN2                         */
     0,                             /* Reserved                     */
+    0,                             /* Reserved                     */
     (int)&Hibernate_IRQHandler,    /* Hibernate                    */
     (int)&USB0_IRQHandler,         /* USB0                         */
     (int)&PWMGen3_IRQHandler,      /* PWM Generator 3              */

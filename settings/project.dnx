@@ -17,7 +17,7 @@
         <LMIFTDIfoundProbes />
     </LMIFTDIDriver>
     <DebugChecksum>
-        <Checksum>3187118407</Checksum>
+        <Checksum>54802877</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -102,6 +102,14 @@
     <Disassemble_mode>
         <mode>0</mode>
     </Disassemble_mode>
+    <DisassembleMode>
+        <mode>1</mode>
+    </DisassembleMode>
+    <Breakpoints>
+        <Bp0>_ "STD_CODE" "0x00000110" 0 0 0 0 "" 0 ""</Bp0>
+        <Bp1>_ "STD_CODE" "{$PROJ_DIR$}.19.1" 0 0 0 0 "" 0 ""</Bp1>
+        <Count>2</Count>
+    </Breakpoints>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -111,22 +119,14 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
+    <Aliases>
+        <Count>0</Count>
+        <SuppressDialog>0</SuppressDialog>
+    </Aliases>
     <CallStackLog>
         <Enabled>0</Enabled>
     </CallStackLog>
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <DisassembleMode>
-        <mode>1</mode>
-    </DisassembleMode>
-    <Breakpoints>
-        <Bp0>_ "STD_CODE" "0x00000110" 0 0 0 0 "" 0 ""</Bp0>
-        <Bp1>_ "STD_CODE" "{$PROJ_DIR$}.19.1" 0 0 0 0 "" 0 ""</Bp1>
-        <Count>2</Count>
-    </Breakpoints>
-    <Aliases>
-        <Count>0</Count>
-        <SuppressDialog>0</SuppressDialog>
-    </Aliases>
 </settings>

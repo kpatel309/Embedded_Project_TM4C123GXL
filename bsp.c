@@ -34,8 +34,8 @@ void BSP_init(void){
     /* Enable LEDs and set initial state to all off */
     SYSCTL->RCGCGPIO  |= (1U << 5); /* enable Run mode for GPIOF (Clock Gating)*/
     SYSCTL->GPIOHBCTL |= (1U << 5); /* enable AHB for GPIOF */
-    GPIOF_AHB->DIR |= (LED_RED | LED_BLUE | LED_GREEN);
-    GPIOF_AHB->DEN |= (LED_RED | LED_BLUE | LED_GREEN);
+    GPIOF_AHB->DIR |= (LED_RED | LED_BLUE | LED_GREEN); /* Enable direction as output for the 3 leds */
+    GPIOF_AHB->DEN |= (LED_RED | LED_BLUE | LED_GREEN); /* Digital enable */
     BSP_ledAllOff();
     
     /* Initialize systick timer for every .5 seconds */
@@ -43,6 +43,26 @@ void BSP_init(void){
     SysTick->VAL  = 0U;
     SysTick->CTRL = (1U << 2) | (1U << 1) | 1U;
       
+    /* Initialize General-Purpose Timer 0 */
+    SYSCTL->RCGCTIMER |= (1<<0);
+    
+    // 1. Ensure the timer is disabled ( the TnEN bit in the GPTMCTL register is cleared) before making any changes
+    TIMER0->CTL &= ~ (1<<0);
+    
+    // 2. Write the GPTM Configuration Register (GPTMCFG) with a value of 0x000.0000.
+    TIMER0->CFG = 0x00000000;
+    
+    // 3. Configure Timer A0 to periodic mode
+    TIMER0->TAMR |= (0x2<<0);
+    
+    // 4. Configure as count down timer
+    TIMER0->TAMR &= ~(1<<4);
+    
+    // 5. Load the start value 
+    TIMER0->TAILR = 0x00F42400; // 16,000,000
+    
+    // 6. Re-enable the timer.
+    TIMER0->CTL |= (1<<0);
     /* configure switch SW1 */
     GPIOF_AHB->DIR &= ~BTN_SW1; /* input */
     GPIOF_AHB->DEN |= BTN_SW1; /* digital enable */

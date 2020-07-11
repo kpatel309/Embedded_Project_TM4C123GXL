@@ -5,7 +5,7 @@ extern int CSTACK$$Limit;
 void __iar_program_start(void);
 void Unused_Handler(void);
 
-
+extern void ADC1Seq3_IRQHandler(void);
 int const __vector_table[] @ ".intvec" = {
     (int)&CSTACK$$Limit,
     (int)&__iar_program_start,
@@ -52,12 +52,12 @@ int const __vector_table[] @ ".intvec" = {
     (int)&Timer2B_IRQHandler,      /* Timer 2 subtimer B           */
     (int)&Comp0_IRQHandler,        /* Analog Comparator 0          */
     (int)&Comp1_IRQHandler,        /* Analog Comparator 1          */
-    (int)&Comp2_IRQHandler,        /* Analog Comparator 2          */
+    0,                             /* Reserved                     */
     (int)&SysCtrl_IRQHandler,      /* System Control (PLL,OSC,BO)  */
     (int)&FlashCtrl_IRQHandler,    /* FLASH Control                */
     (int)&GPIOPortF_IRQHandler,    /* GPIO Port F                  */
-    (int)&GPIOPortG_IRQHandler,    /* GPIO Port G                  */
-    (int)&GPIOPortH_IRQHandler,    /* GPIO Port H                  */
+    0,                             /* Reserved                     */
+    0,                             /* Reserved                     */
     (int)&UART2_IRQHandler,        /* UART2 Rx and Tx              */
     (int)&SSI1_IRQHandler ,        /* SSI1 Rx and Tx               */
     (int)&Timer3A_IRQHandler,      /* Timer 3 subtimer A           */
@@ -66,7 +66,6 @@ int const __vector_table[] @ ".intvec" = {
     (int)&QEI1_IRQHandler,         /* Quadrature Encoder 1         */
     (int)&CAN0_IRQHandler,         /* CAN0                         */
     (int)&CAN1_IRQHandler,         /* CAN1                         */
-    (int)&CAN2_IRQHandler,         /* CAN2                         */
     0,                             /* Reserved                     */
     0,                             /* Reserved                     */
     (int)&Hibernate_IRQHandler,    /* Hibernate                    */
@@ -80,9 +79,9 @@ int const __vector_table[] @ ".intvec" = {
     (int)&ADC1Seq3_IRQHandler,     /* ADC1 Sequence 3              */
     0,                             /* Reserved                     */
     0,                             /* Reserved                     */
-    (int)&GPIOPortJ_IRQHandler,    /* GPIO Port J                  */
-    (int)&GPIOPortK_IRQHandler,    /* GPIO Port K                  */
-    (int)&GPIOPortL_IRQHandler,    /* GPIO Port L                  */
+    0,                             /* Reserved                     */
+    0,                             /* Reserved                     */
+    0,                             /* Reserved                     */
     (int)&SSI2_IRQHandler,         /* SSI2 Rx and Tx               */
     (int)&SSI3_IRQHandler,         /* SSI3 Rx and Tx               */
     (int)&UART3_IRQHandler,        /* UART3 Rx and Tx              */
@@ -196,6 +195,12 @@ __stackless void Unused_Handler(void) {
     assert_failed("Unused", __LINE__);
 }
 
+void Timer0A_IRQHandler( void )
+{
+TIMER0->ICR |= (1<<0);
+//BSP_ledGreenOn();
+}
+
 #pragma weak SVC_Handler       = Unused_Handler
 #pragma weak DebugMon_Handler  = Unused_Handler
 #pragma weak PendSV_Handler    = Unused_Handler
@@ -215,11 +220,12 @@ __stackless void Unused_Handler(void) {
 #pragma weak PWMGen1_IRQHandler     = Unused_Handler
 #pragma weak PWMGen2_IRQHandler     = Unused_Handler
 #pragma weak QEI0_IRQHandler        = Unused_Handler
-#pragma weak ADCSeq0_IRQHandler     = Unused_Handler
-#pragma weak ADCSeq1_IRQHandler     = Unused_Handler
-#pragma weak ADCSeq2_IRQHandler     = Unused_Handler
-#pragma weak ADCSeq3_IRQHandler     = Unused_Handler
-#pragma weak Timer0A_IRQHandler     = Unused_Handler
+#pragma weak ADCSeq0_IRQHandler    = Unused_Handler
+#pragma weak ADCSeq1_IRQHandler    = Unused_Handler
+#pragma weak ADCSeq2_IRQHandler    = Unused_Handler
+#pragma weak ADCSeq3_IRQHandler    = Unused_Handler
+//#pragma weak Watchdog_IRQHandler    = Unused_Handler
+//#pragma weak Timer0A_IRQHandler     = Unused_Handler
 #pragma weak Timer0B_IRQHandler     = Unused_Handler
 #pragma weak Timer1A_IRQHandler     = Unused_Handler
 #pragma weak Timer1B_IRQHandler     = Unused_Handler

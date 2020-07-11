@@ -61,7 +61,12 @@ void BSP_init(void){
     // 5. Load the start value 
     TIMER0->TAILR = 0x00F42400; // 16,000,000
     
-    // 6. Re-enable the timer.
+    // 6. Enable interrupts
+    TIMER0->IMR |= (1<<0); // Timeout interrupt mask
+    //NVIC->ISER[0] |= (1<<19); //Enable inteerupt request in NVIC Equivalent to below
+    NVIC_EnableIRQ(TIMER0A_IRQn);
+    
+    // 7.. Re-enable the timer.
     TIMER0->CTL |= (1<<0);
     /* configure switch SW1 */
     GPIOF_AHB->DIR &= ~BTN_SW1; /* input */
@@ -84,6 +89,51 @@ void BSP_init(void){
     GPIOF_AHB->IS  &= ~BTN_SW2; /* edge detect for SW2 */
     GPIOF_AHB->IBE &= ~BTN_SW2; /* only one edge generate the interrupt */
     GPIOF_AHB->IEV &= ~BTN_SW2; /* a falling edge triggers the interrupt */  
+    
+    /* Initialize ADC */
+    //1. Enable the ADC clock using the RCGCADC register
+    SYSCTL->RCGCADC = (1<<1); // use ADC1
+      
+    //2. Enable the clock to the appropriate GPIO modules
+    SYSCTL->RCGCGPIO = (1<<4) | (1<<5); // use port E
+    GPIOE->DIR &= ~(1<<1);
+    
+    //3. Set the GPIO AFSEL bits for the ADC input pins
+    GPIOE->AFSEL = (1<<1); // use PE1, AIN2
+    
+    //4. Configure the AINx signals to be analog inputs 
+    GPIOE->DEN &= ~(1<<1); //PE1
+    
+    //5. Disable the analog isolation circuit for all ADC input pins thar are to be used 
+    GPIOE->AMSEL = (1<<1); // PE1 
+    
+    //6. If required by the application, reconfigure the sample sequencer priorities in the ADCSSPRI register.
+    
+    /* Initialize Sample Sequencer */
+    //1. Ensure that the sample sequencer is disabled by clearing the corresponding ASENn bit in the ADCACTSS register.
+    ADC1->ACTSS &= ~(1<<3); // Sample Sequencer 3 is dissabled.
+    
+    //2. Configure the trigger event for the sample sequencer in the ADCEMUX register; What triggers a read?
+    ADC1->EMUX = (0xF<<12); // SS3, trigger event = continuously sample
+    
+    //3. When using a PWM generator as the trigger source, use the ADC Trigger source select
+    
+    //4. For each sample in the sample sequence, configure the corresponding input source in the ADCSSMUXn register
+    ADC1->SSMUX3 = 2;
+    
+    //5. For each sample in the sample sequence, configure the sample control bits in the corresponding nibble in the ADCSSCTLn register.
+    ADC1->SSCTL3 = 0x6;
+    
+    //6. If interrupts are to be used, set the corresponding MASK bit in the ADCIM register
+    ADC1->IM = (1<<3); // A sample has completed conversion and the respective ADCSSCTL3 IEn bit is set, enabling a raw interrupt
+    
+    //7. Enable the sample sequencer logic by setting the corresponding ASENn bit in the ADCACTSS register.
+    ADC1->ACTSS |= (1<<3);
+    
+    ADC1->ISC = (1<<3); // clear interrupt flag
+    
+    NVIC_EnableIRQ(ADC1SS3_IRQn); //enable interrupt
+    
     
     /* Enable Watchdog timer */
     //SYSCTL->RCGCWD |= WDTIMER0_ENABLE_BIT;

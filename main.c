@@ -3,13 +3,23 @@
 #include <intrinsics.h>
 #include <stdbool.h>
 
+volatile static uint32_t adcResult = 0;
+
+void ADC1Seq3_IRQHandler(void)
+{
+  adcResult = ADC1->SSFIFO3;
+  ADC1->ISC = (1<<3);
+}
+
  int main() {  
     BSP_init();
     
     while (1) {
-      if( ( TIMER0->RIS & 0x00000001 ) == 1 ){
-        TIMER0->ICR |= (1<<0);
-        GPIOF_AHB->DATA ^= ((1U << 3));
+      if(adcResult>2048){
+        BSP_ledGreenOn(); 
+      }
+      else{
+        BSP_ledGreenOff();
       }
       if( BSP_getSW1Pressed() == true ){
         BSP_ledRedOn();

@@ -195,12 +195,6 @@ __stackless void Unused_Handler(void) {
     assert_failed("Unused", __LINE__);
 }
 
-void Timer0A_IRQHandler( void )
-{
-TIMER0->ICR |= (1<<0);
-//BSP_ledGreenOn();
-}
-
 #pragma weak SVC_Handler       = Unused_Handler
 #pragma weak DebugMon_Handler  = Unused_Handler
 #pragma weak PendSV_Handler    = Unused_Handler
@@ -256,7 +250,7 @@ TIMER0->ICR |= (1<<0);
 #pragma weak ADC1Seq0_IRQHandler    = Unused_Handler
 #pragma weak ADC1Seq1_IRQHandler    = Unused_Handler
 #pragma weak ADC1Seq2_IRQHandler    = Unused_Handler
-#pragma weak ADC1Seq3_IRQHandler    = Unused_Handler
+//#pragma weak ADC1Seq3_IRQHandler    = Unused_Handler
 #pragma weak I2S0_IRQHandler        = Unused_Handler
 #pragma weak EBI0_IRQHandler        = Unused_Handler
 #pragma weak GPIOPortJ_IRQHandler   = Unused_Handler

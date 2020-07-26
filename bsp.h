@@ -21,12 +21,15 @@ bool BSP_getSW2Pressed(void);
 /* Led controlling functions */
 void BSP_ledRedOn(void);
 void BSP_ledRedOff(void);
+void BSP_ledRedToggle(void);
 
 void BSP_ledBlueOn(void);
 void BSP_ledBlueOff(void);
+void BSP_ledBlueToggle(void);
 
 void BSP_ledGreenOn(void);
 void BSP_ledGreenOff(void);
+void BSP_ledGreenToggle(void);
 
 void BSP_ledAllOff(void);
 void BSP_ledAllOn(void);

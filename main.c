@@ -1,16 +1,18 @@
+//*****************************************************************************
+//
+// @file main.c
+// @author Kushal Patel
+// @brief Main loop of program.
+//
+//*****************************************************************************
+       
+
 #include "TM4C123GH6PM.h"
 #include "bsp.h"
 #include <intrinsics.h>
 #include <stdbool.h>
 
-volatile static uint32_t adcResult = 0;
-
-void ADC1Seq3_IRQHandler(void)
-{
-  adcResult = ADC1->SSFIFO3;
-  ADC1->ISC = (1<<3);
-}
-
+extern uint32_t adcResult;
  int main() {  
     BSP_init();
     

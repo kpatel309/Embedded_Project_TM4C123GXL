@@ -234,5 +234,4 @@ static void Watchdog_init(void){
     WATCHDOG0->LOAD = WDTIMER_COUNT;
     WATCHDOG0->CTL |= WD_RESEN;
     WATCHDOG0->CTL |= WD_INTEN;
-    NVIC_EnableIRQ(WATCHDOG0_IRQn);
 }

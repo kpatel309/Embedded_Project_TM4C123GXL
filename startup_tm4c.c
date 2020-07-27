@@ -187,10 +187,6 @@ __stackless void UsageFault_Handler(void) {
     assert_failed("UsageFault", __LINE__);
 }
 
-void Watchdog_IRQHandler(void) {
-  assert_failed("Watchdog", __LINE__);
-}
-
 __stackless void Unused_Handler(void) {
     assert_failed("Unused", __LINE__);
 }

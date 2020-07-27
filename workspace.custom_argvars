@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <iarUserArgVars>
-    <group name="TivaWarePath" active="true" />
+    <group name="TivaWarePath" active="true">
+        <variable>
+            <name>TivaWarePath</name>
+            <value>C:\ti\TivaWare_C_Series-2.1.4.178</value>
+        </variable>
+    </group>
 </iarUserArgVars>

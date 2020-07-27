@@ -33,3 +33,8 @@ void Timer0A_IRQHandler( void )
     TIMER0->ICR |= (1<<0);
     //BSP_ledRedToggle();
 }
+
+void Watchdog_IRQHandler( void )
+{
+    //this doesn't really do anything
+}

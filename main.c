@@ -35,6 +35,7 @@ extern uint32_t adcResult;
       else{
         BSP_ledBlueOff();
       }
+      BSP_petWatchdog();
     }
     //return 0;
 }

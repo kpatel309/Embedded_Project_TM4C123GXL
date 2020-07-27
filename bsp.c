@@ -19,7 +19,7 @@
 
 /* Watchdog timer 0 */
 #define WDTIMER0_ENABLE_BIT ( 1 << 0 )
-#define WDTIMER_COUNT ( 0x0FFFFFFF )
+#define WDTIMER_COUNT ( 0x07FFFFFF )
 #define WD_INTEN ( 1 << 0 )
 #define WD_RESEN ( 1 << 1 )
 #define WD_INTTYPE ( 1 << 2 )
@@ -45,7 +45,7 @@ void BSP_init(void){
     
     ADC_init();
     
-    //Watchdog_init();
+    Watchdog_init();
     __enable_irq();
 }
 
@@ -60,7 +60,7 @@ uint32_t BSP_tickCtr(void) {
 }
 
 void BSP_petWatchdog(void){
-  WATCHDOG0->LOAD = WDTIMER_COUNT;
+  WATCHDOG0->ICR = 25; //Can write any number to clear interrupt
 }
 
 void BSP_ledRedOn(void) {
